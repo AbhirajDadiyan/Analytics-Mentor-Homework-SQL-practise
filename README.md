@@ -4,18 +4,18 @@
 created by: Abhiraj Singh Dadiyan
 description: homework/practice for analytics mentor course*/
 
---Need to better understand the food and inventory that we have in our kitchen
+/* Need to better understand the food and inventory that we have in our kitchen 
+ count the number of food records,count the number of food items */
 
-/* count the number of food records*/
---count the number of food items
-
+```
 select
 	 count(*)
 from
 	foods;
-	
+```
 
---selecting all the columns in the table without using *	
+/* selecting all the columns in the table without using */
+```
 select
 	 f.food_id
 	,f.item_name
@@ -27,10 +27,10 @@ select
 	,f.price_last_updated_ts
 from
 	 foods f;
-	 
---selecting all the columns in the table but having 
---price_last_updated_ts as first column
-
+```	 
+/*selecting all the columns in the table but having 
+price_last_updated_ts as first column */
+```
 select
 	 f.price_last_updated_ts
 	,f.food_id
@@ -42,9 +42,9 @@ select
 	,f.package_price
 from
 	 foods f;
-	 
---changinge package_size_uom to something that is not cryptic to viewer
-
+``` 
+/* changinge package_size_uom to something that is not cryptic to viewer*/
+```
 select
 	 f.food_id
 	,f.item_name
@@ -56,9 +56,9 @@ select
 	,f.price_last_updated_ts
 from
 	 foods f;
-	 
---what brands are private label?
-
+```	 
+/* what brands are private label? */
+```
 select
 	 f.food_id
 	,f.item_name
@@ -72,7 +72,9 @@ from
 	foods f
 where
 	brand_name = 'H-E-B (private label)';
---using lower to match case sensitivity	
+```
+/* using lower to match case sensitivity */
+```
 select
 	 f.food_id
 	,f.item_name
@@ -86,9 +88,10 @@ from
 	foods f
 where
 	lower(brand_name) = 'h-e-b (private label)'
-	
---using ilike to match case sensitivity
+```
+/* using ilike to match case sensitivity */
 
+```
 select
 	 f.food_id
 	,f.item_name
@@ -116,8 +119,9 @@ from
 	foods f
 where
 	upper(brand_name) = 'H-E-B (PRIVATE LABEL)';
-	
---adding a column for is_canned
+```
+/* adding a column for is_canned */
+```
 select
 	 f.food_id
 	,f.item_name
@@ -130,9 +134,9 @@ select
 	,case when item_name ilike '%canned%'then 'Y' else 'N' end as is_canned_yn
 from
 	foods f;
-
---locate all the records where there is null values for brand name
-
+```
+/* locate all the records where there is null values for brand name */
+```
 select
 	 f.food_id
 	,f.item_name
@@ -146,10 +150,10 @@ from
 	foods f
 where
 	brand_name is null; --no null value found in brand name
-	
+```	
 
---count each of brand_name
-
+/* count each of brand_name */
+```
 select
      f.brand_name
 	,count(*) as record_count
@@ -159,9 +163,10 @@ group by
 	f.brand_name
 order by
 	brand_name desc;
+```
 
-
---selecting unique brand names
+/* selecting unique brand names */
+```
 select
 	 distinct(f.brand_name)
 from
@@ -175,16 +180,18 @@ from
 update foods
 	set storage_type = 'unknown'
 	where storage_type is null;
---selecting items with food_id 13,15 and 17	
+```
+/* selecting items with food_id 13,15 and 17 */
+```
 select
 	*
 from
 	foods f
 where
 	food_id in ('13','15','17');
-	
---selecting items with food_id 13,15 and 17	as well as brand_name having a private label
-
+```
+/* selecting items with food_id 13,15 and 17	as well as brand_name having a private label */
+```
 select
 	*
 from
@@ -192,8 +199,9 @@ from
 where
 	food_id in ('13','15','17')
 and brand_name ilike '%private label%';
-
---finding out the percentage of private label foods in the foods table
+```
+/* finding out the percentage of private label foods in the foods table */
+```
 select
 	count(*) 
 from
@@ -205,7 +213,6 @@ from
 	foods
 where
 	brand_name ilike '%private label%';
-
 
 select 
 	cast(n.heb_records as decimal (10,2))/
@@ -227,14 +234,17 @@ from
 	foods f
 )d--denominator
 ;
-
---selecting all values for the price_last_updated_ts date
+```
+/* selecting all values for the price_last_updated_ts date */
+```
 select
 	distinct(f.price_last_updated_ts)
 from
 	foods f;
---Finding difference between current date and price_last_updated in days
---to figure out which product's prices need to be updated
+```
+/* Finding difference between current date and price_last_updated in days
+to figure out which product's prices need to be updated */
+```
 select
 	 f.food_id
 	,f.item_name
@@ -252,8 +262,10 @@ select
 	,current_Date
 from
 	foods f;
---finding difference between price_last_updated and current date in terms of date
---with and without hours minutes and seconds
+```
+/* finding difference between price_last_updated and current date in terms of date 
+with and without hours minutes and seconds */
+```
 select
 	 f.food_id
 	,f.item_name
@@ -274,9 +286,10 @@ select
 	 ) as days_since_last_update_wo_ts
 from
 	foods f;
-	
---finding produts that have not been updated in more than 190 days at the time
---of this query
+```
+/* finding produts that have not been updated in more than 190 days at the time
+of this query */
+```
 select
 	*
 from
@@ -303,9 +316,9 @@ from
 			foods f) f--subquery
 where
 	f.days_since_last_update_wo_ts>188
-	
---listing all the columns of both the food table and drinks table
-
+```
+/* listing all the columns of both the food table and drinks table */
+```
 select
 	 f.food_id
 	,f.item_name
@@ -331,9 +344,9 @@ select
 	,d.price_last_updated_ts
 from
 	drinks d;
-
-----listing all the columns of both the food table and drinks table with source tables
-
+```
+/* listing all the columns of both the food table and drinks table with source tables */
+```
 select
 	 f.food_id
 	,f.item_name
@@ -361,12 +374,13 @@ select
 	,'drinks_data' as source_table
 from
 	drinks d;
-	
---listing all the columns of both the food table and drinks table with source tables
---and creating alias columns to differentiate between foodid and drinkid to cleanup
+```
+/* listing all the columns of both the food table and drinks table with source tables
+and creating alias columns to differentiate between foodid and drinkid to cleanup */
+```
 select
-	 f.food_id--if this record is from food table, filling the column.if not, leave blank
-	,null as drink_id--if this record is from the drink table,filling the column.if not, leave blank
+	 f.food_id /* if this record is from food table, filling the column.if not, leave blank */
+	,null as drink_id /*if this record is from the drink table,filling the column.if not, leave blank */
 	,f.item_name
 	,f.storage_type
 	,f.package_size
@@ -381,8 +395,8 @@ from
 union all
 
 select
-	 d.drink_id --if this record is from drink table, filling the column.if not, leave blank
-	,null as food_id--if this record is from the food table,filling the column.if not, leave blank
+	 d.drink_id /* if this record is from drink table, filling the column.if not, leave blank */
+	,null as food_id /* if this record is from the food table,filling the column.if not, leave blank */
 	,d.item_name
 	,d.storage_type
 	,d.package_size
@@ -393,7 +407,7 @@ select
 	,'drinks_data' as source_table
 from
 	drinks d;
-	
+
 select
 	 f.food_id
 	,null as drink_id
@@ -419,12 +433,9 @@ select
 	,d.price_last_updated_ts
 from
 	drinks d;
-	
-/* date created: august 9th 2023
-created by: Abhiraj Singh Dadiyan
-description: homework/practise for analytics mentor course*/
-
---combining foods and food inventory table
+```
+/* combining foods and food inventory table */
+```
 select
 	 f.food_id
 	,f.item_name
@@ -454,8 +465,9 @@ from
 		) i
 	on
 		f.food_id = i.food_item_id;
-
---outputting only the records where there is a match
+```
+/* outputting only the records where there is a match */
+```
 select
 	 f.food_id
 	,f.item_name
@@ -485,3 +497,4 @@ from
 		) i
 	on
 		f.food_id = i.food_item_id;
+```
